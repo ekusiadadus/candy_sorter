@@ -35,4 +35,18 @@ class Game {
       );
     }
   }
+
+  void addTwo() {
+    final random = Random();
+    for (var i = 0; i < 2; i++) {
+      int nextIndex = random.nextInt(colors.length);
+      candies.add(
+        Candy(
+          color: colors[nextIndex],
+          top: random.nextInt(gameArea.height.toInt() - 120).toDouble(),
+          left: random.nextInt(gameArea.width.toInt() - 100).toDouble(),
+        ),
+      );
+    }
+  }
 }
