@@ -1,8 +1,12 @@
-import 'package:candy_sorter/features/candy_sorter/view/game_page.dart';
+import 'package:candy_sorter/features/candy_sorter/services/locator.dart';
+import 'package:candy_sorter/features/candy_sorter/view/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setup();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,9 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Candy Sorter',
-      home: SafeArea(
-        child: GamePage(),
-      ),
+      home: Home(),
     );
   }
 }
