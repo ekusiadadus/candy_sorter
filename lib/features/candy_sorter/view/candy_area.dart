@@ -21,6 +21,7 @@ class CandyArea extends StatefulWidget {
 
 class _CandyAreaState extends State<CandyArea> {
   Offset _beginCandyOffset = const Offset(0, 0);
+  bool isAccepted = false;
 
   _buildStack(BoxConstraints constraints) {
     List<Widget> list = [];
@@ -29,38 +30,58 @@ class _CandyAreaState extends State<CandyArea> {
         AnimatedPositioned(
           top: candy.top,
           left: candy.left,
-          curve: Curves.easeOut,
           duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOutCirc,
           child: Draggable<Candy>(
             data: candy,
             feedback: CandyWidget(
               candy: candy,
             ),
-            child: CandyWidget(
-              candy: candy,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 500),
+              opacity: candy.dragged ? 0 : 1,
+              child: CandyWidget(
+                candy: candy,
+              ),
             ),
             childWhenDragging: Container(),
             onDragCompleted: () {
-              widget.onRemoveCandy(candy);
+              if (isAccepted) {
+                widget.onRemoveCandy(candy);
+                setState(() {
+                  isAccepted = false;
+                });
+              }
             },
             onDragStarted: () {
               setState(() {
                 _beginCandyOffset = Offset(candy.left, candy.top);
+                candy.dragged = true;
               });
             },
             onDragUpdate: (details) {
               setState(() {
-                candy.left = details.localPosition.dx;
-                candy.top = details.localPosition.dy - 120;
+                candy.left = details.localPosition.dx - 20;
+                candy.top = details.localPosition.dy - 180;
               });
             },
             onDragEnd: (DraggableDetails details) {
+              print('height ${constraints.maxHeight}');
+              print('offset dy ${details.offset.dy - 120}');
               if (!details.wasAccepted) {
-                widget.onAddTwoLeft();
-                widget.game.addTwo();
+                if (details.offset.dy - 120 >= constraints.maxHeight) {
+                  widget.onAddTwoLeft();
+                  widget.game.addTwo();
+                }
                 setState(() {
                   candy.left = _beginCandyOffset.dx;
                   candy.top = _beginCandyOffset.dy;
+                  isAccepted = false;
+                  candy.dragged = false;
+                });
+              } else {
+                setState(() {
+                  isAccepted = true;
                 });
               }
               print('onDragEnd - accepted: ${details.wasAccepted}');

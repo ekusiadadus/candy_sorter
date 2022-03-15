@@ -10,4 +10,5 @@ class Candy {
   final Color color;
   double top;
   double left;
+  bool dragged = false;
 }
