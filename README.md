@@ -7,10 +7,15 @@ You can find the details at https://flutterchallenge.dev/lets-eat-some-candies
 ## Goals
 
 ✅ Make the candies draggable
+
 ✅ Make the bowls drag targets for the specific color
+
 ✅ Update the number of candies left and sorted texts at the top
+
 ✅ Add a stopwatch and display the time needed to sort all the candies.
+
 ✅ Make the game properties configurable. The number of candies in the game or the list of colors. Save the configuration as shared preferences.
+
 ✅ Add 2 new candies each time the user drags it into the wrong bowl.
 
 ## iOS & Android
