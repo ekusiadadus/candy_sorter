@@ -76,13 +76,16 @@ class _HomeMenuState extends State<HomeMenu> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 ),
-                child: const Text(
-                  'New Game',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                      letterSpacing: 2.5,
-                      fontWeight: FontWeight.bold),
+                child: const FittedBox(
+                  fit: BoxFit.fill,
+                  child: Text(
+                    'New Game',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                        letterSpacing: 2.5,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
