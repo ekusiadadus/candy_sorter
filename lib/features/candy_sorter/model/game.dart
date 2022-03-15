@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class Game {
   Game({
     required this.colors,
@@ -22,31 +24,29 @@ class Game {
     candies.remove(candy);
   }
 
-  void _fillCandies() {
+  _getNewCandy() {
     final random = Random();
+    int nextIndex = random.nextInt(colors.length);
+    return Candy(
+      color: colors[nextIndex],
+      top: random
+          .nextInt(gameArea.height.toInt() - cMaxAppBarHeight.toInt())
+          .toDouble(),
+      left: random
+          .nextInt(gameArea.width.toInt() - cCandyWidth.toInt() - 20)
+          .toDouble(),
+    );
+  }
+
+  void _fillCandies() {
     for (var i = 0; i < numberOfCandies; i++) {
-      int nextIndex = random.nextInt(colors.length);
-      candies.add(
-        Candy(
-          color: colors[nextIndex],
-          top: random.nextInt(gameArea.height.toInt() - 120).toDouble(),
-          left: random.nextInt(gameArea.width.toInt() - 100).toDouble(),
-        ),
-      );
+      candies.add(_getNewCandy());
     }
   }
 
   void addTwo() {
-    final random = Random();
     for (var i = 0; i < 2; i++) {
-      int nextIndex = random.nextInt(colors.length);
-      candies.add(
-        Candy(
-          color: colors[nextIndex],
-          top: random.nextInt(gameArea.height.toInt() - 120).toDouble(),
-          left: random.nextInt(gameArea.width.toInt() - 100).toDouble(),
-        ),
-      );
+      candies.add(_getNewCandy());
     }
   }
 }
