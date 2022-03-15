@@ -88,24 +88,35 @@ class _GamePageState extends ConsumerState<GamePage> {
       print(waveHeight);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Candy Sorter'),
-        centerTitle: true,
-        backgroundColor: Colors.blue.shade800,
-        actions: [
-          IconButton(
-            onPressed: () {
-              _createGame();
-            },
-            icon: const Icon(Icons.replay),
-          )
-        ],
-      ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(
-            height: 20.0,
+          SizedBox(
+            height: 120,
+            child: Row(
+              children: [
+                BackButton(
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const Text(
+                  'Candy Sorter',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _createGame();
+                  },
+                  icon: const Icon(Icons.replay),
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,9 +131,6 @@ class _GamePageState extends ConsumerState<GamePage> {
               )
             ],
           ),
-          const SizedBox(
-            height: 20.0,
-          ),
           won
               ? Expanded(
                   child: Won(
@@ -131,8 +139,15 @@ class _GamePageState extends ConsumerState<GamePage> {
                 )
               : Container(),
           !won
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height / 2,
+              ? Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.0,
+                      color: Colors.black12.withOpacity(0.03),
+                    ),
+                  ),
+                  height: MediaQuery.of(context).size.height / 1.8,
                   child: CandyArea(
                     onAddTwoLeft: _addTwoCandies,
                     onRemoveCandy: _onRemoveCandy,
