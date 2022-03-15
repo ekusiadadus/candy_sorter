@@ -1,6 +1,7 @@
 import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../widgets/candy_widget.dart';
 
 class CandyArea extends StatefulWidget {
@@ -66,10 +67,9 @@ class _CandyAreaState extends State<CandyArea> {
               });
             },
             onDragEnd: (DraggableDetails details) {
-              print('height ${constraints.maxHeight}');
-              print('offset dy ${details.offset.dy - 120}');
               if (!details.wasAccepted) {
-                if (details.offset.dy - 120 >= constraints.maxHeight) {
+                if (details.offset.dy - cMaxAppBarHeight >=
+                    constraints.maxHeight) {
                   widget.onAddTwoLeft();
                   widget.game.addTwo();
                 }

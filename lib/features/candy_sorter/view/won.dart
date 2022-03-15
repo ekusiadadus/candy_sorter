@@ -4,6 +4,8 @@ import 'package:candy_sorter/features/candy_sorter/view/time.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class Won extends StatefulWidget {
   const Won({Key? key, required this.seconds}) : super(key: key);
 
@@ -79,7 +81,7 @@ class _WonState extends State<Won> {
             ], // manually specify the colors to be used
             createParticlePath: drawStar, // define a custom shape/path.
           ),
-          top: 120.0,
+          top: cMaxAppBarHeight,
           left: 0.0,
         ),
         Positioned(
@@ -98,7 +100,7 @@ class _WonState extends State<Won> {
             ], // manually specify the colors to be used
             createParticlePath: drawStar, // define a custom shape/path.
           ),
-          top: 120.0,
+          top: cMaxAppBarHeight,
           right: 0.0,
         ),
         LayoutBuilder(

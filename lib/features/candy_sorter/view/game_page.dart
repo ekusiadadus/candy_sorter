@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
+import '../constants.dart';
 import 'bowl_area.dart';
 import 'candy_area.dart';
 
@@ -92,7 +93,7 @@ class _GamePageState extends ConsumerState<GamePage> {
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            height: 120,
+            height: cMaxAppBarHeight,
             child: Row(
               children: [
                 BackButton(
