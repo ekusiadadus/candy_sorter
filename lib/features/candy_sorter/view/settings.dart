@@ -1,8 +1,9 @@
 import 'package:candy_sorter/features/candy_sorter/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../constants.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -26,9 +27,10 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   void initState() {
+    super.initState();
     colors = ref.read(gameSettingsProvider).colors;
     _text.text = ref.read(gameSettingsProvider).numberOfCandies.toString();
-    super.initState();
+    numberOfCandies = ref.read(gameSettingsProvider).numberOfCandies;
   }
 
   void changeColor(Color color) {
@@ -105,41 +107,72 @@ class _SettingsState extends ConsumerState<Settings> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    TextField(
-                      controller: _text,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      cursorHeight: 15.0,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(5.0),
-                        border: const OutlineInputBorder(),
-                        errorText: _validate ? '' : null,
-                        labelText: 'Number of candies',
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Slider(
+                            autofocus: true,
+                            value: numberOfCandies.toDouble(),
+                            onChanged: (value) {
+                              setState(() {
+                                numberOfCandies = value.toInt();
+                              });
+                            },
+                            thumbColor: Colors.blue,
+                            min: 1,
+                            max: cMaxCandiesCount,
+                            activeColor: Colors.blue.shade700,
+                            inactiveColor: Colors.blue.shade100,
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.circular(5.0)),
+                          alignment: Alignment.center,
+                          height: 25.0,
+                          width: 40.0,
+                          child: Text(
+                            '$numberOfCandies',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 25.0,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Colors',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                          onPressed: colors.length < 6 ? showColorPicker : null,
-                          icon: const Icon(Icons.plus_one),
-                          padding: const EdgeInsets.all(0),
-                          tooltip: "Add a new color",
-                          disabledColor: Colors.black38,
-                          color: Colors.blue,
-                          splashColor: Colors.blue.shade100,
-                          highlightColor: Colors.blue,
-                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: const Text(
+                              'Colors',
+                              style: TextStyle(
+                                  fontSize: 24.0, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: IconButton(
+                              onPressed:
+                                  colors.length < 6 ? showColorPicker : null,
+                              icon: const Icon(Icons.plus_one),
+                              padding: const EdgeInsets.all(0),
+                              tooltip: "Add a new color",
+                              disabledColor: Colors.black38,
+                              color: Colors.blue,
+                              splashColor: Colors.blue.shade100,
+                              highlightColor: Colors.blue,
+                            ),
+                            subtitle:
+                                const Text('Click a color twice to delete it'),
+                            contentPadding: const EdgeInsets.all(0),
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -190,21 +223,15 @@ class _SettingsState extends ConsumerState<Settings> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_text.text.isEmpty || int.parse(_text.text) < 1) {
-                            setState(() {
-                              _validate = true;
-                            });
-                          } else {
-                            ref.read(gameSettingsProvider).colors = colors;
-                            ref.read(gameSettingsProvider).numberOfCandies =
-                                int.parse(_text.text);
-                            setState(() {
-                              _validate = false;
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Settings saved')),
-                            );
-                          }
+                          ref.read(gameSettingsProvider).colors = colors;
+                          ref.read(gameSettingsProvider).numberOfCandies =
+                              numberOfCandies;
+                          setState(() {
+                            _validate = false;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Settings saved')),
+                          );
                         },
                         child: const Text('Save'),
                       ),
