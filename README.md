@@ -18,6 +18,10 @@ You can find the details at https://flutterchallenge.dev/lets-eat-some-candies
 
 ✅ Add 2 new candies each time the user drags it into the wrong bowl.
 
+✅ Animations for candies, bowls and counters.
+
+✅ Page transition animation for a new game.
+
 ## iOS & Android
 
 ![](https://github.com/deam91/candy_sorter/blob/main/assets/images/phone1.png?raw=true)
