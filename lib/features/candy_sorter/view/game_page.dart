@@ -29,14 +29,14 @@ class _GamePageState extends State<GamePage> {
                   child: const GamePageContent(),
                   shaderCallback: (rect) {
                     return RadialGradient(
-                      radius: value * 5,
-                      colors: const [
+                      radius: value * 5.5,
+                      colors: [
                         Colors.white,
                         Colors.white,
-                        Colors.white,
+                        Colors.white.withOpacity(.8),
                         Colors.transparent
                       ],
-                      stops: const [0.0, 0.55, 0.6, 1.0],
+                      stops: const [0.0, 0.57, 0.6, 1.0],
                       center: FractionalOffset(dx, dy),
                     ).createShader(rect);
                   },
