@@ -43,29 +43,13 @@ class _HomeMenuState extends State<HomeMenu> {
                     width: width / 2,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
+                        Navigator.of(context).push(
                           PageRouteBuilder(
                             pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    const GamePage(),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              const begin = Offset(0.0, 1.0);
-                              const end = Offset.zero;
-                              const curve = Curves.easeInOut;
-
-                              var tween = Tween(begin: begin, end: end)
-                                  .chain(CurveTween(curve: curve));
-                              final curvedAnimation = CurvedAnimation(
-                                parent: animation,
-                                curve: curve,
-                              );
-                              return SlideTransition(
-                                position: tween.animate(curvedAnimation),
-                                child: child,
-                              );
+                                (context, animation, secondaryAnimation) {
+                              return const GamePage();
                             },
+                            opaque: false,
                           ),
                         );
                       },
@@ -120,29 +104,13 @@ class _HomeMenuState extends State<HomeMenu> {
                         width: width / 4,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
+                            Navigator.of(context).push(
                               PageRouteBuilder(
                                 pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const GamePage(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  const begin = Offset(0.0, 1.0);
-                                  const end = Offset.zero;
-                                  const curve = Curves.easeInOut;
-
-                                  var tween = Tween(begin: begin, end: end)
-                                      .chain(CurveTween(curve: curve));
-                                  final curvedAnimation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: curve,
-                                  );
-                                  return SlideTransition(
-                                    position: tween.animate(curvedAnimation),
-                                    child: child,
-                                  );
+                                    (context, animation, secondaryAnimation) {
+                                  return const GamePage();
                                 },
+                                opaque: false,
                               ),
                             );
                           },
