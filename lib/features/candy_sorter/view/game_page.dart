@@ -25,7 +25,6 @@ class _GamePageState extends State<GamePage> {
               duration: const Duration(milliseconds: 1500),
               child: const GamePageContent(),
               builder: (BuildContext context, double value, Widget? child) {
-                print(value);
                 return ShaderMask(
                   child: const GamePageContent(),
                   shaderCallback: (rect) {

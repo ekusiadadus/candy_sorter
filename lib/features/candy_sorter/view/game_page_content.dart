@@ -122,13 +122,25 @@ class _GamePageContentState extends ConsumerState<GamePageContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              'Candies left: $leftCandies',
-              style: Theme.of(context).textTheme.headline6,
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              switchOutCurve: Curves.linearToEaseOut,
+              switchInCurve: Curves.easeInToLinear,
+              child: Text(
+                'Candies left: $leftCandies',
+                key: ValueKey(leftCandies),
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
-            Text(
-              'Candies sorted: $sortedCandies',
-              style: Theme.of(context).textTheme.headline6,
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              switchOutCurve: Curves.linearToEaseOut,
+              switchInCurve: Curves.easeInToLinear,
+              child: Text(
+                'Candies sorted: $sortedCandies',
+                key: ValueKey(sortedCandies),
+                style: Theme.of(context).textTheme.headline6,
+              ),
             )
           ],
         ),
